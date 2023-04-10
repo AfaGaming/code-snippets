@@ -5,6 +5,7 @@
 ### Express app setup 
 Here's the starting code to setup an express app:
 ```
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -51,6 +52,9 @@ app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
 ```
+<br> <br>
+Install command: ```
+npm i dotenv express ejs body-parser mongoose```
 
 ### Authentication
 Here's the code to make a basic authentication system.
