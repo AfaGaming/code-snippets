@@ -4,7 +4,7 @@
 
 ### Express app setup 
 Here's the starting code to setup an express app:
-```
+```javascript
 require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -25,8 +25,8 @@ app.use(express.static("public"));
 // database
 
 const dbName = process.env.DB_NAME || "testDB";
-const connectionUrl =
-  process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/" + dbName;
+const connectionUrl = process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/" + dbName;
+
 mongoose
   .connect(connectionUrl)
   .then(console.log("Connected to MongoDB!"))
@@ -59,11 +59,22 @@ const port = process.env.PORT || 3000;
 app.listen(port, console.log("Server listening on port " + port));
 
 ```
-<br> <br>
+<br>
+
+Your `.env` will look like this:
+```
+# Basic settings (required for use)
+DB_NAME=<DB_NAME>
+MONGODB_URL=<Your URL Here>
+PORT=<Your Port Here>
+```
+
+<br>
 Install command: 
 ```
 npm i dotenv express ejs body-parser mongoose
 ```
+
 
 ### Authentication
 Here's the code to make a basic authentication system.
