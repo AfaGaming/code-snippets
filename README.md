@@ -24,36 +24,40 @@ app.use(express.static("public"));
 
 // database
 
-const dbName = process.env.DB_NAME || "testDB"
-const connectionUrl = process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/" + dbName; 
-mongoose.connect(connectionUrl)
-.then(console.log("Connected to MongoDB!"))
-.catch(err => console.log("Unable to connect to MongoDB: \n" + err.message));
+const dbName = process.env.DB_NAME || "testDB";
+const connectionUrl =
+  process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/" + dbName;
+mongoose
+  .connect(connectionUrl)
+  .then(console.log("Connected to MongoDB!"))
+  .catch((err) =>
+    console.log("Unable to connect to MongoDB: \n" + err.message)
+  );
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    password: String
+  username: String,
+  password: String,
 });
 
 const User = new mongoose.Model("User", userSchema);
-
 
 // Routes
 
 // GET
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+  res.send("Hello World!");
 });
 
-// POST 
+// POST
 
 app.post("/", (req, res) => {
-    res.send("You posted!");
+  res.send("You posted!");
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, console.log("Server listening on port " + port));
+
 ```
 <br> <br>
 Install command: 
