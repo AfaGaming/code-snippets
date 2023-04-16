@@ -5,52 +5,55 @@
 ### Express app setup 
 Here's the starting code to setup an express app:
 ```
-require("dotenv").config();
+require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const app = express();
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.static("public"));
 
 // database
-mongoose.connect("mongodb://127.0.0.1:27017/testDB")
-.then(console.log("Connected to database."))
-.catch(err => console.log("Unable to connect to database: \n" + err));
+
+const dbName = process.env.DB_NAME || "testDB"
+const connectionUrl = process.env.MONGODB_URL || "mongodb://127.0.0.1:27017/" + dbName; 
+mongoose.connect(connectionUrl)
+.then(console.log("Connected to MongoDB!"))
+.catch(err => console.log("Unable to connect to MongoDB: \n" + err.message));
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  password: String
+    username: String,
+    password: String
 });
 
-const User = mongoose.model('User', userSchema);
+const User = new mongoose.Model("User", userSchema);
 
-// routes
+
+// Routes
 
 // GET
 
-app.get("/", function(req, res) {
-  res.send("Hello World");
+app.get("/", (req, res) => {
+    res.send("Hello World!");
 });
 
+// POST 
 
-
-// POST
-
-app.post("/", function (req, res) {
-  res.send("You posted!");
-})
-
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+app.post("/", (req, res) => {
+    res.send("You posted!");
 });
+
+const port = process.env.PORT || 3000;
+app.listen(port, console.log("Server listening on port " + port));
 ```
 <br> <br>
 Install command: 
